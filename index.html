@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags for proper display and SEO -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Study Planner - Organize Your Academic Life</title>
+    
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Google Fonts for better typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Main container for the entire application -->
+    <div class="container">
+        <!-- Header section with navigation -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="app-title">
+                    <i class="fas fa-graduation-cap"></i>
+                    Smart Study Planner
+                </h1>
+                
+                <!-- Navigation tabs -->
+                <nav class="nav-tabs">
+                    <button class="nav-tab active" data-tab="dashboard">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Dashboard
+                    </button>
+                    <button class="nav-tab" data-tab="tasks">
+                        <i class="fas fa-tasks"></i>
+                        Tasks
+                    </button>
+                    <button class="nav-tab" data-tab="schedule">
+                        <i class="fas fa-calendar-alt"></i>
+                        Schedule
+                    </button>
+                    <button class="nav-tab" data-tab="goals">
+                        <i class="fas fa-target"></i>
+                        Goals
+                    </button>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main content area with different sections -->
+        <main class="main-content">
+            
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="content-section active">
+                <div class="section-header">
+                    <h2 class="section-title">Dashboard Overview</h2>
+                    <p class="section-subtitle">Your study progress at a glance</p>
+                </div>
+
+                <!-- Statistics Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="stat-number" id="total-tasks">0</h3>
+                            <p class="stat-label">Total Tasks</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="stat-number" id="completed-tasks">0</h3>
+                            <p class="stat-label">Completed</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="stat-number" id="pending-tasks">0</h3>
+                            <p class="stat-label">Pending</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="stat-number" id="study-streak">0</h3>
+                            <p class="stat-label">Day Streak</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Overview -->
+                <div class="progress-section">
+                    <h3 class="subsection-title">Weekly Progress</h3>
+                    <div class="progress-chart">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="weekly-progress" style="width: 0%"></div>
+                            <span class="progress-text" id="weekly-progress-text">0%</span>
+                        </div>
+                        <p class="progress-description">Keep going! You're making great progress this week.</p>
+                    </div>
+                </div>
+
+                <!-- Today's Schedule Preview -->
+                <div class="today-schedule">
+                    <h3 class="subsection-title">Today's Schedule</h3>
+                    <div id="today-tasks" class="today-tasks-container">
+                        <p class="empty-state">No tasks scheduled for today</p>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <h3 class="subsection-title">Quick Actions</h3>
+                    <div class="action-buttons">
+                        <button class="action-btn" id="quick-add-task">
+                            <i class="fas fa-plus"></i>
+                            Add Task
+                        </button>
+                        <button class="action-btn" id="quick-add-goal">
+                            <i class="fas fa-bullseye"></i>
+                            Set Goal
+                        </button>
+                        <button class="action-btn" id="view-calendar">
+                            <i class="fas fa-calendar"></i>
+                            View Calendar
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tasks Section -->
+            <section id="tasks" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">Task Management</h2>
+                    <button class="primary-btn" id="add-task-btn">
+                        <i class="fas fa-plus"></i>
+                        Add New Task
+                    </button>
+                </div>
+
+                <!-- Task Filters -->
+                <div class="filter-section">
+                    <div class="filter-tabs">
+                        <button class="filter-btn active" data-filter="all">All Tasks</button>
+                        <button class="filter-btn" data-filter="pending">Pending</button>
+                        <button class="filter-btn" data-filter="completed">Completed</button>
+                        <button class="filter-btn" data-filter="overdue">Overdue</button>
+                    </div>
+                    
+                    <div class="search-container">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" id="task-search" placeholder="Search tasks..." class="search-input">
+                    </div>
+                </div>
+
+                <!-- Tasks List -->
+                <div class="tasks-container">
+                    <div id="tasks-list" class="tasks-list">
+                        <!-- Tasks will be dynamically generated here -->
+                    </div>
+                    
+                    <div id="empty-tasks" class="empty-state-container">
+                        <div class="empty-state">
+                            <i class="fas fa-clipboard-list empty-icon"></i>
+                            <h3>No tasks yet</h3>
+                            <p>Start by adding your first study task!</p>
+                            <button class="primary-btn" id="add-first-task">
+                                <i class="fas fa-plus"></i>
+                                Add Your First Task
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Schedule Section -->
+            <section id="schedule" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">Study Schedule</h2>
+                    <div class="schedule-controls">
+                        <button class="secondary-btn" id="prev-week">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <span class="current-week" id="current-week-display">This Week</span>
+                        <button class="secondary-btn" id="next-week">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Weekly Calendar View -->
+                <div class="calendar-container">
+                    <div class="calendar-grid" id="weekly-calendar">
+                        <!-- Calendar will be dynamically generated -->
+                    </div>
+                </div>
+
+                <!-- Schedule Timeline -->
+                <div class="timeline-section">
+                    <h3 class="subsection-title">Daily Timeline</h3>
+                    <div class="date-selector">
+                        <input type="date" id="timeline-date" class="date-input">
+                    </div>
+                    <div id="daily-timeline" class="timeline-container">
+                        <!-- Timeline will be dynamically generated -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Goals Section -->
+            <section id="goals" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">Study Goals</h2>
+                    <button class="primary-btn" id="add-goal-btn">
+                        <i class="fas fa-plus"></i>
+                        Add New Goal
+                    </button>
+                </div>
+
+                <!-- Goals Grid -->
+                <div id="goals-container" class="goals-grid">
+                    <!-- Goals will be dynamically generated here -->
+                </div>
+
+                <div id="empty-goals" class="empty-state-container">
+                    <div class="empty-state">
+                        <i class="fas fa-target empty-icon"></i>
+                        <h3>No goals set</h3>
+                        <p>Set your first study goal to stay motivated!</p>
+                        <button class="primary-btn" id="add-first-goal">
+                            <i class="fas fa-plus"></i>
+                            Add Your First Goal
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Modals for adding/editing tasks and goals -->
+        
+        <!-- Task Modal -->
+        <div id="task-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Add New Task</h3>
+                    <button class="close-btn" id="close-task-modal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <form id="task-form" class="modal-form">
+                    <div class="form-group">
+                        <label for="task-title">Task Title</label>
+                        <input type="text" id="task-title" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="task-subject">Subject</label>
+                        <select id="task-subject" class="form-select" required>
+                            <option value="">Select Subject</option>
+                            <option value="Mathematics">Mathematics</option>
+                            <option value="Science">Science</option>
+                            <option value="English">English</option>
+                            <option value="History">History</option>
+                            <option value="Programming">Programming</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="task-date">Due Date</label>
+                            <input type="date" id="task-date" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="task-time">Due Time</label>
+                            <input type="time" id="task-time" class="form-input">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="task-priority">Priority</label>
+                        <select id="task-priority" class="form-select" required>
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="task-description">Description</label>
+                        <textarea id="task-description" class="form-textarea" rows="3" placeholder="Optional details about the task..."></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="secondary-btn" id="cancel-task">Cancel</button>
+                        <button type="submit" class="primary-btn">
+                            <i class="fas fa-save"></i>
+                            Save Task
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Goal Modal -->
+        <div id="goal-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Add New Goal</h3>
+                    <button class="close-btn" id="close-goal-modal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <form id="goal-form" class="modal-form">
+                    <div class="form-group">
+                        <label for="goal-title">Goal Title</label>
+                        <input type="text" id="goal-title" class="form-input" required placeholder="e.g., Complete Math Course">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="goal-category">Category</label>
+                        <select id="goal-category" class="form-select" required>
+                            <option value="">Select Category</option>
+                            <option value="academic">Academic</option>
+                            <option value="skill">Skill Development</option>
+                            <option value="exam">Exam Preparation</option>
+                            <option value="project">Project</option>
+                            <option value="personal">Personal</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="goal-target-date">Target Date</label>
+                            <input type="date" id="goal-target-date" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="goal-target-value">Target Value</label>
+                            <input type="number" id="goal-target-value" class="form-input" min="1" placeholder="e.g., 100" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="goal-unit">Unit</label>
+                        <select id="goal-unit" class="form-select" required>
+                            <option value="hours">Hours</option>
+                            <option value="pages">Pages</option>
+                            <option value="chapters">Chapters</option>
+                            <option value="exercises">Exercises</option>
+                            <option value="tasks">Tasks</option>
+                            <option value="days">Days</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="goal-description">Description</label>
+                        <textarea id="goal-description" class="form-textarea" rows="3" placeholder="Describe your goal in detail..."></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="secondary-btn" id="cancel-goal">Cancel</button>
+                        <button type="submit" class="primary-btn">
+                            <i class="fas fa-save"></i>
+                            Save Goal
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Notification Toast -->
+        <div id="notification-toast" class="toast">
+            <div class="toast-content">
+                <i class="toast-icon"></i>
+                <span class="toast-message"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Link to external JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>
